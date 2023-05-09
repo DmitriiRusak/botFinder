@@ -16,7 +16,7 @@ import java.util.List;
 public class ComposerForRanner {
 
     private SorcePageInformation sorcePageInformation = new SorcePageInformation();
-    private Avtorization2 avtorization = new Avtorization2();
+    private Avtorization1 avtorization = new Avtorization1();
     private ScammerFinder scammerFinder = new ScammerFinder();
 
     private Loadar loader = new Loadar();
