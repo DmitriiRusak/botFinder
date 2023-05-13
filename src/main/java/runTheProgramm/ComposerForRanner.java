@@ -2,6 +2,8 @@ package runTheProgramm;
 
 import avtorizations.Avtorization1;
 import avtorizations.Avtorization2;
+import avtorizations.Avtorization3;
+import avtorizations.PageLoader;
 import information.SorcePageInformation;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -15,29 +17,27 @@ import java.util.List;
 
 public class ComposerForRanner {
 
+    //private PageLoader pageLoader=new PageLoader();
     private SorcePageInformation sorcePageInformation = new SorcePageInformation();
-    private Avtorization1 avtorization = new Avtorization1();
+
+    private Avtorization3 avtorization = new Avtorization3();
+
     private ScammerFinder scammerFinder = new ScammerFinder();
-
     private Loadar loader = new Loadar();
-
     private List<WebElement> blocksOfKomments = new ArrayList();
     private List <WebElement> allNumberedReplaydKoments = new ArrayList();
 
     public void runTheProgramm() throws InterruptedException {
         ChromeDriver driver = new ChromeDriver();
-        driver.get(sorcePageInformation.getBaseUrl());
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
+        //pageLoader.establishConnection(driver,wait,sorcePageInformation);
         driver.manage().window().maximize();
 
-        avtorization.avtorization(driver,sorcePageInformation);
+        driver.get(sorcePageInformation.getBaseUrl());
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        Thread.sleep(4000);
-        ((JavascriptExecutor) driver).executeScript("scroll(0, 950);");
-        Thread.sleep(1000);
+        avtorization.avtorization(driver,sorcePageInformation,wait);
 
-
-        blocksOfKomments = loader.downloadAllPresentedBlocksOfKommentsOnTheWebPage(blocksOfKomments, driver, sorcePageInformation);
+        blocksOfKomments = loader.downloadAllPresentedBlocksOfKommentsOnTheWebPage(blocksOfKomments, driver, sorcePageInformation, wait);
         System.out.println("Нашол боков-коментариев в количестве - " + blocksOfKomments.size());
 
 
@@ -46,6 +46,7 @@ public class ComposerForRanner {
                                                                             allNumberedReplaydKoments,
                                                                             avtorization.getMyNickname1(),
                                                                             avtorization.getMyNickname2(),
+                                                                            avtorization.getMyNickname3(),
                                                                             sorcePageInformation);
         System.out.println("количество блоков ответов на коментарии - " + allNumberedReplaydKoments.size());
 

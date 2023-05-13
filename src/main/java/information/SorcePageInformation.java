@@ -4,11 +4,13 @@ import org.openqa.selenium.WebElement;
 
 public class SorcePageInformation {
 
-     private final String baseUrl = "https://www.youtube.com/watch?v=KphYB4YYLwI&list=PLAoxMwdIsDVntpJUpVPabilqR5S-j7kTZ&index=104";
+    //private final String baseUrl = "https://www.youtube.com/watch?v=KphYB4YYLwI&list=PLAoxMwdIsDVntpJUpVPabilqR5S-j7kTZ&index=104";
     //private String baseUrl = "https://www.youtube.com/watch?v=gkcQ94nPDFc&list=PLAoxMwdIsDVntpJUpVPabilqR5S-j7kTZ&index=101";
     //private String baseUrl = "https://www.youtube.com/watch?v=pu41Hf80Y8k&list=PLAoxMwdIsDVntpJUpVPabilqR5S-j7kTZ&index=98";
-    //private String baseUrl = "https://www.youtube.com/watch?v=pHH9GvYolhA";
+    private String baseUrl = "https://www.youtube.com/watch?v=pHH9GvYolhA";
+
     private final String signInButton="//a[@aria-label='Sign in']";
+    //private final String signInButton="//ytd-button-renderer[@class='style-scope ytd-masthead']//span[text()='Sign in']";
 
     private final String inputForEmail="//input[@jsname='YPqjbf']";
 
@@ -33,6 +35,8 @@ public class SorcePageInformation {
     private final String buttonAnswerForAnAnswer="//ytd-button-renderer[@id='submit-button']";
 
     private final String intputForAnAnswer = "//div[@id='contenteditable-root']";
+
+    private final String avatarka = "//button[@id='avatar-btn']";
 
     public String addNumberToTheAnswer(WebElement element, int a){
         String elementXpath=element.toString().substring(80, element.toString().length() - 1)+"["+String.valueOf(a)+"]";
@@ -93,4 +97,7 @@ public class SorcePageInformation {
         return inputForAnAnswer;
     }
 
+    public String getavatarka() {
+        return avatarka;
+    }
 }

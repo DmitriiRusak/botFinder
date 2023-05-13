@@ -1,17 +1,17 @@
 package avtorizations;
+
+import information.SorcePageInformation;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import information.SorcePageInformation;
 
 import java.time.Duration;
 
-public class Avtorization2 extends Avtorization0{
-    private final String email="botFinderVersion2@gmail.com";
-    private final String password = "findABotAndKill2";
+public class Avtorization3 extends Avtorization0{
+    private final String email = "botFinderVersionTri";
+    private final String password = "botFinderVersionTri_3-";
 
     public void avtorization(ChromeDriver driver, SorcePageInformation sorcePageInformation, WebDriverWait wait) throws InterruptedException {
 
@@ -42,5 +42,4 @@ public class Avtorization2 extends Avtorization0{
         System.out.println("Aвторизация1 прошла успешно");
         Thread.sleep(2000);
     }
-
 }

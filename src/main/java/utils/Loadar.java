@@ -6,6 +6,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +17,15 @@ public class Loadar {
     private List<WebElement> kommentsNewCount = new ArrayList<>();
 
 
-    public List downloadAllPresentedBlocksOfKommentsOnTheWebPage(List <WebElement> blocksOfKommentsOldCount,
-                                                                 ChromeDriver driver,
-                                                                 SorcePageInformation sorcePageInformation) throws InterruptedException {
+    public List downloadAllPresentedBlocksOfKommentsOnTheWebPage(List <WebElement> blocksOfKommentsOldCount, ChromeDriver driver,
+                                                                 SorcePageInformation sorcePageInformation, WebDriverWait wait) throws InterruptedException {
+        ((JavascriptExecutor) driver).executeScript("scroll(0, 950);");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev())));
         blocksOfKommentsOldCount = driver.findElements(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev()));
         while (!reachedEnd) {
-            ((JavascriptExecutor) driver).executeScript("javascript:window.scrollBy(0,2700)");
-            Thread.sleep(4000);
+            ((JavascriptExecutor) driver).executeScript("javascript:window.scrollBy(0,2900)");
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev())));
+            Thread.sleep(3000);
             kommentsNewCount = driver.findElements(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev()));
 
             if ((blocksOfKommentsOldCount.size() == kommentsNewCount.size()) && (blocksOfKommentsOldCount.size() != 20)) {
@@ -37,16 +41,17 @@ public class Loadar {
                                                  List<WebElement> allNumberedReplaydKoments,
                                                  String myNickName1,
                                                  String myNickName2,
+                                                 String myNickName3,
                                                  SorcePageInformation sorcePageInformation) throws InterruptedException {
         Actions act = new Actions(driver);
         for (int i = 1; i < blocksOfKomments.size();i++) {
             WebElement allReplayButton=driver.findElement(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev()+"["+i+"]"+sorcePageInformation.getPytDoVsexReplayButton()));
             if(allReplayButton.getAttribute("hidden")==null){
-                //WebElement activeReplayButton=driver.findElement(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev()+"["+i+"]"+sorcePageInformation.getPytDoVsexReplayButton()+sorcePageInformation.getPytDoYnikalnogoElementaVReplayButton()));
                 WebElement activeReplayButton=driver.findElement(By.xpath(sorcePageInformation.getPytDoBlockaKommentariev()+"["+i+"]"+sorcePageInformation.getPytDoYnikalnogoElementaVReplayButton()));
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(false);", activeReplayButton);
                 ((JavascriptExecutor) driver).executeScript("javascript:window.scrollBy(0,100)");
-                act.moveToElement(driver.findElement(By.xpath("//yt-icon[@id='logo-icon']"))).build().perform();    //otvodim kyrsor chtob ne zakrival element
+                //act.moveToElement(driver.findElement(By.xpath("//yt-icon[@id='logo-icon']"))).build().perform();    //otvodim kyrsor chtob ne zakrival element
+                act.moveToElement(activeReplayButton).build().perform();    //otvodim kyrsor chtob ne zakrival element
                 activeReplayButton.click();
                 ((JavascriptExecutor) driver).executeScript("javascript:window.scrollBy(0,600)");
                 Thread.sleep(900);
@@ -55,7 +60,9 @@ public class Loadar {
 
                 //check for my komments, if I alredy left my komment, dont do it again
                 for(int count=0; count<allAnswersInTheBlockOfKomments.size();count++){
-                    if(allAnswersInTheBlockOfKomments.get(count).getText().contains(myNickName1) || allAnswersInTheBlockOfKomments.get(count).getText().contains(myNickName2)) {
+                    if(allAnswersInTheBlockOfKomments.get(count).getText().contains(myNickName1) ||
+                            allAnswersInTheBlockOfKomments.get(count).getText().contains(myNickName2) ||
+                            allAnswersInTheBlockOfKomments.get(count).getText().contains(myNickName3) ) {
                         allAnswersInTheBlockOfKomments.clear();
                         break;
                     }
